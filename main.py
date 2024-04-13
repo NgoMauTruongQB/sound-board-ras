@@ -1,33 +1,33 @@
-from pydub import AudioSegment
-from pydub.playback import play
-import RPi.GPIO as GPIO
+import pygame.mixer
 from time import sleep
+import RPi.GPIO as GPIO
 from sys import exit
-import os
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(23, GPIO.IN)
 GPIO.setup(24, GPIO.IN)
 GPIO.setup(25, GPIO.IN)
 
-# Lấy đường dẫn thư mục hiện tại của script
-script_dir = os.path.dirname(os.path.abspath(__file__))
+pygame.mixer.init(48000, -16, 1, 1024)
 
-# Tạo các đường dẫn tuyệt đối đến các file âm thanh
-soundA = AudioSegment.from_file(os.path.join(script_dir, "sound1.mp3"))
-soundB = AudioSegment.from_file(os.path.join(script_dir, "sound2.mp3"))
-soundC = AudioSegment.from_file(os.path.join(script_dir, "sound3.mp3"))
+sndA = pygame.mixer.Sound("sound1.wav")
+sndB = pygame.mixer.Sound("sound2.wav")
+sndC = pygame.mixer.Sound("sound3.wav")
 
-print("Soundboard Ready.")
+soundChannelA = pygame.mixer.Channel(1)
+soundChannelB = pygame.mixer.Channel(2)
+soundChannelC = pygame.mixer.Channel(3)
+
+print "Sampler Ready."
 
 while True:
-    try:
-        if GPIO.input(23):
-            play(soundA)
-        if GPIO.input(24):
-            play(soundB)
-        if GPIO.input(25):
-            play(soundC)
-        sleep(0.01)
-    except KeyboardInterrupt:
-        exit()
+   try:
+      if (GPIO.input(23) == True):
+         soundChannelA.play(sndA)
+      if (GPIO.input(24) == True):
+         soundChannelB.play(sndB)
+      if (GPIO.input(25) == True):
+         soundChannelC.play(sndC)
+      sleep(.01)
+   except KeyboardInterrupt:
+      exit()
