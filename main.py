@@ -12,12 +12,11 @@ GPIO.setup(25, GPIO.IN)
 
 # Lấy đường dẫn thư mục hiện tại của script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-sounds_dir = os.path.join(script_dir, "sounds")
 
 # Tạo các đường dẫn tuyệt đối đến các file âm thanh
-soundA = AudioSegment.from_file(os.path.join(sounds_dir, "sound1.mp3"))
-soundB = AudioSegment.from_file(os.path.join(sounds_dir, "sound2.mp3"))
-soundC = AudioSegment.from_file(os.path.join(sounds_dir, "sound3.mp3"))
+soundA = AudioSegment.from_file(os.path.join(script_dir, "sound1.mp3"))
+soundB = AudioSegment.from_file(os.path.join(script_dir, "sound2.mp3"))
+soundC = AudioSegment.from_file(os.path.join(script_dir, "sound3.mp3"))
 
 print("Soundboard Ready.")
 
