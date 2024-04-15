@@ -20,25 +20,14 @@ soundC = AudioSegment.from_file(os.path.join(script_dir, "sound3.mp3"))
 
 print("Soundboard Ready.")
 
-current_playing = None
-
 while True:
     try:
         if GPIO.input(23):
-            if current_playing != soundA:
-                if current_playing:
-                    play(soundA)
-                    current_playing = soundA
+            play(soundA)
         if GPIO.input(24):
-            if current_playing != soundB:
-                if current_playing:
-                    play(soundB)
-                    current_playing = soundB
+            play(soundB)
         if GPIO.input(25):
-            if current_playing != soundC:
-                if current_playing:
-                    play(soundC)
-                    current_playing = soundC
+            play(soundC)
         sleep(0.01)
     except KeyboardInterrupt:
         exit()
